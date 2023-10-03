@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { UserContext } from './app/context/UserContext';
+import sampleImgGenerator from './app/utils/sampleImgGenerator';
+
+import MainStackNavigator from './app/navigators/MainStackNavigator';
 
 export default function App() {
+  const test = {
+    userName: 'anytime.username',
+    location: 'San Jose • CA',
+    profileImg: sampleImgGenerator(720),
+    isLoggedIn: false,
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <UserContext.Provider value={test}>
+        <MainStackNavigator />
+      </UserContext.Provider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
